@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        function fn(name,...age){
+            console.log(name)		//10
+            console.log(age)		//[20,30]
+        };
+        fn(10,20,30);
+
+
+
+
+
+
+        let arr = ['张三','李四','王二'];
+        let [a,...b] = arr;
+        console.log(a);     //张三
+        console.log(b);     //['李四', '王二']
+
+
+        let o = {name:'麻子',age:50,sex:'女'}
+        let{name,...d} = o;
+        console.log(name);      //麻子
+        console.log(d);        //{age: 50, sex: '女'}
+
+        console.log(...arr);    // 张三 李四 王二
+    </script>
+</body>
+</html>

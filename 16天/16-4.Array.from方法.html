@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        var o = {
+            '0' : 1,
+            '1' : 2,
+            'length' :2
+        }
+        var arr = Array.from(o,item => item);
+        console.log(arr);   //[1,2]
+
+        var s = new Set(['a','a','b','b']);
+        var arr = [...s];
+        console.log(s);         //{'a', 'b'}
+        console.log(arr);       //['a', 'b']
+        s.forEach((value) => {
+            console.log(value);
+        });
+    </script>
+</body>
+</html>

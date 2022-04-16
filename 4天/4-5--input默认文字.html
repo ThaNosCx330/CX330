@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        div {
+            margin: 100px auto;
+            width: 300px;
+        }
+        p {
+            float: right;
+            font-size: 12px;
+            color: #666;
+            margin-top: 6px;
+        }
+        .true {
+            color: green;
+        }
+        .false {
+            color: red;
+        }
+        input {
+            outline: none;
+        }
+    </style>
+</head>
+<body>
+    <input type="text" value="点击">
+
+    <div>
+        <input type="password">
+        <p>请输入6到12位的密码</p>
+    </div>
+
+    <script>
+        var put = document.querySelectorAll('input');
+        put[0].onfocus  = function (){
+            if(this.value === '点击'){
+                this.value = '';
+            }
+        };
+        put[0].onblur = function fn2() {
+            if(this.value === ''){
+                this.value = '点击'
+            }
+        };
+        var flag = true;
+        put[1].onfocus = function () {
+            if(flag){
+                this.value = ''
+                p.className = '';
+                p.innerText = '请输入6到12位的密码'
+            }
+            flag = false;
+        };
+        var p = document.querySelector('p');
+        put[1].onblur = function () {
+            if(this.value.length >= 6 && this.value.length <= 12){
+                p.innerText = '可以使用';
+                p.className = 'true';
+                flag = true;
+            } else {
+                p.innerText = '请规范输入密码';
+                p.className = 'false';
+                flag = true;
+            }
+        };
+    </script>
+</body>
+</html>
