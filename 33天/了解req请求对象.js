@@ -11,7 +11,7 @@ server.on('request',(req,res) => {
     let str = '<h1>404</h1>'
     res.setHeader('Content-Type','text/html;charset=utf-8')
     if (url == '/index.html' || url == '/') {
-        fs.readFile(path.join(__dirname,'/index.html'),'utf-8',function (re,data) {
+        fs.readFile(path.join(__dirname,'/index.html'),'utf-8',function (err,data) {
             //console.log(data);
             res.end(data)
         })
