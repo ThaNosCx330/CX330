@@ -12,7 +12,7 @@ server.on('request',(req,res) => {
         path1 = path.join(__dirname,'/clock/index.html');
         console.log(path1);
     } else {
-        path1 = path.join(__dirname,'/clock',req.url)
+        path1 = path.join(__dirname,'/clock/',req.url)
         console.log(path1);
     }
     
