@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <form id="advForm">
+        <p>广告名称：<input type="text" name="advName" value="xixi"></p>
+        <p>广告类别：<select name="advType">
+            <option value="1">轮播图</option>
+            <option value="2">轮播图底部广告</option>
+            <option value="3">热门回收广告</option>
+            <option value="4">优品精选广告</option>
+        </select></p>
+        <p>广告图片：<input type="file" name="advPic"></p>
+        <p>广告地址：<input type="text" name="advUrl"></p>
+        <p>广告排序：<input type="text" name="orderBy"></p>
+        <p><input type="button" id="btn" value="添加"></p>
+    </form>
+
+    <script>
+            var btn=document.querySelector("#btn");
+            btn.onclick=function(){
+                var formdata=new FormData(document.getElementById("advForm"));
+
+                    //通过get方法获得name为advName元素的value值
+                    console.log(formdata.get("advName"));//xixi
+                    //通过get方法获得name为advType元素的value值
+                    console.log(formdata.get("advType"));//1 
+
+                var xhr=new XMLHttpRequest();
+                xhr.open("post","http://www.liulongbin.top:3006/api/formdata");
+                xhr.send(formdata);
+                xhr.onload=function(){
+                    if(xhr.status==200){
+                        console.log(xhr.response);
+                        console.log(xhr.responseText);
+                    }
+                }
+            }
+
+
+    </script>
+</body>
+</html>

@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="../css/bootstrap-3.4.1-dist/css/bootstrap.css"/>
+    <script src="../js/jquery.js"></script>
+    <script src="../css/bootstrap-3.4.1-dist/js/bootstrap.js"></script>
+</head>
+<body>
+    <input type="file" id="file1">
+    <button type="submit" id="btn">上传</button>
+    <div class="progress" style="width:500px; margin:20px 10px; display: none;">
+
+        <div id="article" class="progress-bar progress-bar-warning progress-bar-striped active" style="width:0%" >
+            60%
+        </div>
+    </div>
+
+    <img src="" id="imgs">
+
+    <script>
+
+        $('#btn').on('click',function () {
+
+            var filelist = $('#file1')[0].files;
+
+            if (!filelist.length)  return alert('请添加文件');
+
+            var fd = new FormData();
+
+            fd.append('avatar',filelist[0])
+
+            var xhr=new XMLHttpRequest();
+            xhr.upload.onprogress = function (e) {
+                var num = Math.ceil((e.loaded/e.total)*100);
+                $('#article').attr('style','width:' + num + '%');
+                $('.progress').attr('style','width:500px; margin:20px 10px; display: block;');
+                $('.progress').children('div').html(num + '%');
+            };
+            xhr.upload.onload = function () {
+                
+            }
+                xhr.open("post","http://www.liulongbin.top:3006/api/upload/avatar");
+                xhr.send(fd);
+                xhr.onload=function(){
+                    if(xhr.status !== 200) return alert('上传失败');
+                        var data = JSON.parse(xhr.responseText);
+                        $('#imgs')[0].src = `http://www.liulongbin.top:3006${data.url}`
+                }
+        })
+
+
+    </script>
+</body>
+</html>

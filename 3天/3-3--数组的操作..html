@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        var arr = new Array(1, 2, 3, 4, 5);
+        console.log(arr);
+        var arr1 = [];
+        for (var i = 0; i < arr.length; i++){
+            if(arr[i] > 3){
+                arr1.push(arr[i])
+            }
+        };
+        console.log(arr1);
+        console.log(arr1.indexOf(5));
+        var a = arr.slice(1,2);
+        var b = arr.splice(3, 2)
+        console.log(a);
+        console.log(b);
+
+
+
+        var arr2 = [1, 2, 3, 4, 2, 6, 8, 5, 3, 2, 4, 7,7,7,7,7,5,6,8,4,5,5,5];
+        var arr5 = [1,2,3,9,10,11];
+
+
+        function hebin(a,b) {
+            var c = a.concat(b)
+            return c;  
+        };
+        function find(a, b){
+            var d = hebin(a, b)
+            var arr3 = [];
+            for(var i = 0; i < d.length; i++){
+                if(arr3.indexOf(d[i]) == -1){
+                    arr3.push(d[i]);
+                }
+            }
+            return arr3.sort(function(a, b){
+                return a - b;
+            });
+        }
+        console.log(find(arr2,arr5));
+
+
+        var str = '我要成功，我要成功';
+        var string = str.indexOf('我', str.indexOf('我') + 1);
+        console.log(string);
+    </script>
+</body>
+</html>

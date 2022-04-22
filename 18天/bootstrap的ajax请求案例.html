@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="../css/bootstrap/css/bootstrap.css">
+    
+    <script src="../js/jquery.js"></script>
+    <script src="../css/bootstrap/js/bootstrap.js"></script>
+
+    <style>
+        body{
+            padding: 20px;
+        }
+        .panel-danger > .panel-heading{
+            background-color: #337ab7;
+        }
+    </style>
+</head>
+<body>
+
+
+    
+    <div class="panel panel-danger">
+          <div class="panel-heading">
+                <h3 class="panel-title">图书管理</h3>
+          </div>
+          <div class="panel-body form-inline">
+                
+                <div class="input-group">
+                    <div class="input-group-addon">书名</div>
+                    <input type="text" class="form-control" id="bookname" placeholder="请输入书名">
+                </div>
+                <div class="input-group">
+                    <div class="input-group-addon">作者</div>
+                    <input type="text" class="form-control" id="author" placeholder="请输入作者">
+                </div>
+                <div class="input-group">
+                    <div class="input-group-addon">出版社</div>
+                    <input type="text" class="form-control" id="publisher" placeholder="请输入出版社">
+                </div>
+                
+                <button type="button" class="btn btn-primary">添加</button>
+                
+          </div>
+
+
+               
+    </div>
+
+    <!-- 书名图表 -->
+
+    <div class="box">
+
+        <table class="table table-bordered table-hover">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>书名</th>
+                    <th>作者</th>
+                    <th>出版社</th>
+                    <th>操作</th>
+                </tr>
+            </thead>
+            <tbody class="tb">
+                <a href="" class="del"></a>
+            </tbody>
+        </table>
+    </div>
+
+
+
+
+    
+    <script>
+        $(function () {
+            function getbook(){
+                $.ajax({
+                    type: 'GET',
+                    url: 'http://liulongbin.top:3006/api/getbooks',
+                    success: function (res) {
+                        var frag = [];
+                        $.each(res.data,function (i,v) {
+                            frag.push(` <tr>
+                                            <td>${v.id}</td>
+                                            <td>${v.bookname}</td>
+                                            <td>${v.author}</td>
+                                            <td>${v.publisher}</td>
+                                            <td><a href="javascript:;" data-id=${v.id} class="del">删除</a></td>
+                                        </tr>`);
+                        })
+                        $('.tb').empty().append(frag.join(''));
+
+                    }
+                })
+            }
+            getbook();
+            $('.tb').on('click','.del',function () {
+               
+                var index = $(this).attr('data-id');
+                $.ajax({
+                    type:'GET',
+                    url: 'http://liulongbin.top:3006/api/delbook',
+                    data:{
+                        id:index
+                    },
+                    success: function (res) {
+                        if (res.status !== 200) return alert('错误');
+                        getbook();
+                    }
+                })
+            });
+
+
+            $('.btn').on('click',function () {
+                var bookname = $('#bookname').val().trim();
+                var author = $('#author').val().trim();
+                var publisher = $('#publisher').val().trim();
+                $.ajax({
+                    type: 'POST',
+                    url: 'http://liulongbin.top:3006/api/addbook',
+                    data:{
+                        bookname:bookname,
+                        author:author,
+                        publisher:publisher,
+                    },
+                    success: function (res) {
+                        if (bookname.length <=0||author.length<=0||publisher.length<=0) alert('请输入内容');
+                        $('#publisher').val('');
+                        $('#author').val('');
+                        $('#bookname').val('');
+                        getbook();
+                    }
+                })
+            })
+        })
+    </script>
+</body>
+</html>

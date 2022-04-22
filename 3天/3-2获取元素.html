@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        #box,p {
+            height: 100px;
+            width: 400px;
+            background-color: brown;
+        }
+
+    </style>
+</head>
+<body>
+    <p></p>
+    <button>点击</button>
+    <div id="box">
+
+    </div>
+
+
+    <script>
+        var btn = document.querySelector('button');
+        var div = document.querySelector('div');
+        var p = document.querySelector('p')
+        p.innerText = time();
+        console.log(btn,div);
+        btn.onclick = function () {
+            div.innerText  = time()
+        }
+
+
+
+
+
+
+
+        function time (){
+            var date = new Date();
+            var year = date.getFullYear();
+            var month = date.getMonth() +1;
+            var dates = date.getDate();
+            var day = date.getDay();
+            var hours = date.getHours();
+            var hours =  hours < 10 ? '0' + hours : hours;
+            var m = date.getMinutes();
+            var m = m < 10 ? '0' + m : m ;
+            var second = date.getSeconds();
+            var second = second < 10 ? '0' + second : second;
+            return ('今天是' + year + '年-' + month + '月-' + dates + '日-' +'星期' + day + '--' + hours + ':' + m + ':' + second);
+            
+
+        }
+        time();
+    </script>
+</body>
+</html>
