@@ -23,11 +23,32 @@ app.use((req,res,next) => {
 
     next();
 })
+
+//解密token
+const secertKEY = 'jiangziyi';
+//路由之前解析token的配置
+var { expressjwt: expressJWT1 } = require("express-jwt");
+app.use(expressJWT1({secret:secertKEY,algorithms:["HS256"]}).unless({path:[/^\/api\//]}));
+
 //导入router文件
 const router = require('./router/user')
 app.use('/api',router)
 
+//导入userinfo文件，获取用户信息
+const userinfo = require('./router/userinfo')
+app.use('/my',userinfo)
+
+// 错误中间件
+app.use(function (err, req, res, next) {
+
+    // 捕获身份认证失败的错误
+    if (err.name === 'UnauthorizedError') return res.cc('身份认证失败！')
+  
+    // 未知错误...
+    res.cc(err)
+  })
+
 //开启8089端口的服务器
 app.listen(8089,() => {
-    console.log("8089开启");
+    console.log("ok");
 })
