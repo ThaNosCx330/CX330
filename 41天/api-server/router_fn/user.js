@@ -16,7 +16,7 @@ exports.regUser = async (req,res) => {
     let userinfo = req.body;
     try {
         /*验证*/
-        await schema.validateAsync(userinfo); 
+        await schema.getlogin.validateAsync(userinfo); 
          //定义sql查询语法
         let selectStr = 'select * from ev_users where username=?';
 
@@ -63,7 +63,7 @@ exports.login = async (req,res) => {
     const userinfo = req.body
     try {
         /*验证*/
-        await schema.validateAsync(userinfo);
+        await schema.getlogin.validateAsync(userinfo);
         
         //接收表单的数据
         let str = `select * from ev_users where username=?`
@@ -81,6 +81,8 @@ exports.login = async (req,res) => {
             if (!newpassword) {
                 return res.cc('密码或者用户名错误')
             }
+            
+            //加密token
             const secertKEY = 'jiangziyi';
 
             const newuser = {...result[0],user_pic : null,password : null};
