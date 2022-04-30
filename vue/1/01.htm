@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>vue3</title>
+    <style>
+        [v-cloak]{
+            display: none;;
+        }
+
+        .box {
+            width: 100px;
+            height: 100px;
+            border: 1px solid #333;
+        }
+    </style>
+</head>
+<body>
+    
+    <div id="app" v-cloak>
+        <div v-cloak>
+            {{username}}
+            {{num}}
+        </div>
+        <div :class = "{box : isactive}"></div>
+        <a href="https://www.baidu.com" @click.prevent>阻止去百度</a>
+        <a v-bind:href = 'url'>v-bind指令</a>
+        <a :href = 'url'>v-bind指令2</a>
+        <input type="text" v-model = "username" @keyup.65= 'code'>
+        <button @click = 'sum'>点击</button>
+        <button @click = 'is'>切换</button>
+    </div>
+
+    <!-- 引入vue.js文件 -->
+    <script src="../js/vue-2.6.14.js"></script>
+
+    <script>
+        // 创建 Vue 的实例对象
+        const vm = new Vue({
+          // el 属性是固定的写法，表示当前 vm 实例要控制页面上的哪个区域，接收的值是一个选择器
+          el: '#app',
+          // data 对象就是要渲染到页面上的数据
+          data: {
+            username: 'zhangsan',
+            msg:'ok',
+            num:0,
+            url: 'https://www.baidu.com',
+            isactive: true
+          },
+          methods : {
+              sum: function () {
+                  console.log(this === vm);
+                  this.num++
+              },
+              code: function (event) {
+                  console.log(event.keyCode);
+              },
+              is : function () {
+                  this.isactive = !this.isactive
+              }
+          }
+        })
+    </script>
+
+</body>
+</html>
