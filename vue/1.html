@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <style>
+        [v-cloak] {
+            display: none;
+        }
+        * {
+            margin: 0;
+            padding: 0;
+        }
+        a {
+            text-decoration: none;
+            color:rgb(20, 1, 1);
+        }
+        .box {
+            width: 500px;
+            margin: 20px auto;
+            border: 1px solid #000;
+        }
+        table {
+            border-collapse: collapse;
+            width: 100%;
+            
+        }
+
+        th {
+            background-color: rgb(197, 234, 15);
+            height: 30px;
+        }
+
+        td {
+            border: 0.5px dashed rgb(241, 15, 15);
+            height: 30px;
+            text-align: center;
+            font-size: 14px;
+        }
+        td:nth-child(1) {
+            width: 15%;
+        }
+        td:last-child {
+            width: 15%;
+        }
+        .text {
+            width: 100%;
+            height: 30px;
+            background-color: rgb(197, 234, 15);
+        }
+        input {
+            outline: none;
+        }
+    </style>
+</head>
+<body>
+
+    <div id="app" v-cloak>
+        <div class="box">
+            <div class="text">
+                <label for="ID">编号</label> <input type="text" id="ID" v-model = 'id' :disabled="flag">
+                <label for="ID1">名字</label> <input type="text" id="ID1" v-model = 'name'>
+                <input type="button" value="提交" @click = 'present'>
+            </div>
+            <table>
+                <thead>
+                    <tr>
+                        <th>编号</th>
+                        <th>名称</th>
+                        <th>时间</th>
+                        <th>操作</th>
+                    </tr>
+                </thead>
+        
+                <tbody>
+                    <tr :key = 'item.id' v-for = '(item,index) in books'>
+                        <td>{{item.id}}</td>
+                        <td>{{item.name}} </td>
+                        <td>{{item.date}}</td>
+                        <td>
+                            <a href="javascript:;" @click = 'amend(item.id)'>修改</a>
+                            <a href="javascript:;" @click = 'deletebook(index)'>删除</a>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <script src="./js/vue-2.6.14.js"></script>
+    <script>
+     
+        var vm = new Vue({
+            el: '#app',
+            data: {
+                flag: false,
+                id:'',
+                name:'',
+                books: [
+                    {
+                        id : 1,
+                        name: '三国演义',
+                        date:''
+                    },
+                    {
+                        id : 2,
+                        name: '水浒传',
+                        date:''
+                    },
+                    {
+                        id : 3,
+                        name: '西游记',
+                        date:''
+                    },
+                ]
+            },
+
+            methods: {
+                present: function () {
+                    if (this.flag) {
+                        this.books.some((item) => {
+                            if (item.id == this.id) {
+                                //把输入框内的内容重新赋值给查找到的这个数据对象item
+                                item.name = this.name;
+                                // this.flag = false;
+                                // this.id = '';
+                                // this.name = '';
+                                return true;
+                            }
+                        })
+                        this.flag = false;
+                    }else {
+
+                        var num = this.books.some( (item) => {
+                            if (item.id == this.id) {
+                                return true
+                            } 
+                        });
+                        if (num) {
+                            return alert('ID重复不可用')
+                        }
+                        var book = {};
+                        book.id = this.id;
+                        book.name = this.name;
+                        book.date = '';
+                        this.books.push(book);
+                    }
+                    this.id = '';
+                    this.name = '';
+                },
+                amend: function (index) {
+                    this.flag = true;
+                    var that = this
+                    //筛选出id和传过来id一样的数据对象
+                    var book = this.books.filter((item) => {
+                        return item.id == index
+                    });
+                    this.id = book[0].id;
+                    this.name = book[0].name;
+                    
+                },
+                deletebook: function (index){
+                    // 一
+                    //this.books.splice(index,1)
+
+                    // 二
+                    // 上边查找的是满足条件的元素，可以取反，把不满足条件的选中
+                    // var book = this.books.filter((item) => {
+                    //     return item.id == index
+                    // });
+                    this.books = this.books.filter((item) => {
+                        return item.id !== index
+                        //但是有问题，因为剩下最后一个索引就是0，删除不掉的
+                    });
+                }
+            }
+        })
+    </script>
+</body>
+</html>
