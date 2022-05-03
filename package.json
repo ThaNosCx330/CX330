@@ -9,6 +9,7 @@
     "jsonwebtoken": "^8.5.1",
     "multiparty": "^4.2.3",
     "mysql": "^2.18.1",
+    "prettier": "^2.6.2",
     "querystringify": "^2.2.0"
   }
 }

@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+
+  <div id="app">
+    <div>
+      {{root}} {{i}}
+      <menu-item :title = 'ptitle' @ahh-h = 'sum($event)'></menu-item>
+      
+    </div> 
+  </div>
+
+  <script src="../js/vue-2.6.14.js"></script>
+  <script>
+    Vue.component('menu-item',{
+      props : ['title'],
+      data: function () {
+        return {
+          msg: '子组件'
+        }
+      },
+      template : `
+      <div>
+        {{msg + title}}
+        <button >点击</button>
+        <button @click = '$emit("ahh-h",5)'>点击</button>
+      </div>
+      `,
+    })
+    var vm = new Vue({
+      el: '#app',
+      data: {
+        root : '父组件',
+        ptitle: '动态',
+        i:0
+      },
+      methods: {
+        sum : function (val) {
+          this.i += val;
+        }
+      }
+    })
+  </script>
+
+</body>
+
+</html>
