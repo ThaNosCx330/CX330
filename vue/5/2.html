@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+
+        fetch('http://127.0.0.1:8089/book',{
+            method:'post',
+
+            body: JSON.stringify({
+                name: 'hhh',
+                age: 20
+            }),
+            headers:{
+                'Content-type':'application/json'
+            }
+
+        }).then((data) => {
+            //text()方法是fetchAPI中的一部分，返回的是Pomise实例对象，用于获取后台的数据
+            return data.text();
+        }).then((data) => {
+            console.log(data);
+        });
+
+        //2
+        fetch('http://127.0.0.1:8089/book',{
+            method:'post',
+            body:'uname=lisi&pwd=123',
+            headers:{
+                'Content-Type':'application/x-www-form-urlencoded',
+            }
+        }).then(data => {
+            return data.text();
+        }).then(ret => {
+            //这里才是得到的最终数据
+            console.log(ret);
+        })
+        //后台接收参数为req.body.uname + '--' + req.body.pwd
+        //body是bodyParser提供支持
+
+    </script>
+</body>
+</html>
