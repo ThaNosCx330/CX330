@@ -1,5 +1,10 @@
 {
   "dependencies": {
+    "@babel/cli": "^7.17.10",
+    "@babel/core": "^7.17.10",
+    "@babel/node": "^7.17.10",
+    "@babel/polyfill": "^7.12.1",
+    "@babel/preset-env": "^7.17.10",
     "body-parser": "^1.20.0",
     "cors": "^2.8.5",
     "express": "^4.17.3",
@@ -11,5 +16,25 @@
     "mysql": "^2.18.1",
     "prettier": "^2.6.2",
     "querystringify": "^2.2.0"
-  }
+  },
+  "name": "qianduanlianxi",
+  "version": "1.0.0",
+  "main": "index.js",
+  "devDependencies": {},
+  "type": "module",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ThaNosCx330/CX330.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ThaNosCx330/CX330/issues"
+  },
+  "homepage": "https://github.com/ThaNosCx330/CX330#readme",
+  "description": ""
 }

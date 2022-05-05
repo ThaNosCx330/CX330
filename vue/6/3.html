@@ -1,0 +1,111 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+
+    <div id="app">
+        <router-link to="/user">user</router-link>
+        <router-link to="/user/zhi">user1</router-link>
+        <router-link to="/user/2">user2</router-link>
+        <router-link :to='{ name:"hh",params:{id:3}}'>user3</router-link>
+        <router-link to="/register">register</router-link>
+        
+        <router-view/>
+    </div>
+    <script src="../js/vue-2.6.14.js"></script>
+    <script src="../js/vue.router@3.5.3.js"></script>
+    <script>
+        var user = {
+            
+            props:['id','name','age'],
+            template:
+            `
+            <div>
+            <h1>user{{id + name + age}}</h1>
+            <button @click='goreg'>go注册</button>
+            </div>
+            `,
+            methods: {
+                goreg: function () {
+                    //this.$router.push({path:'/register'})
+                    this.$router.push({name:'reg',params:{userID:123}})
+                }
+            },
+        }
+        var register = {
+            template:
+            `
+            <div>
+                <h1>register</h1>
+
+                <button @click='go'>{{$route.params.userID}}</button>
+
+                <router-link to="/register/tab1">tab1</router-link>
+                <router-link to="/register/tab2">tab2</router-link>
+
+                <!-- 占位 -->
+                <router-view/>
+            </div>
+            `,
+            methods: {
+                go:function(){
+                    this.$router.go(-1)
+                }
+            },
+        }
+
+        var tab1 = {
+            template:
+            `
+            <h3>tab1</h3>
+            `
+        }
+
+        var tab2 = {
+            template:
+            `
+            <h3>tab2</h3>
+            `
+        }
+        //创建router实例对象
+        const router = new VueRouter({
+            routes: [
+                { path:'/',redirect:'/user'},
+                {path:'/user',component:user},
+                {name:'hh',path:'/user/:id',component:user,props: route => ({
+                    name:'zs',
+                    age:20,
+                    id: route.params.id
+                })},
+                {   
+                    name:'reg',
+                    path:'/register',
+                    component:register,
+                    children:[
+                        {
+                            path:'/register/tab1',
+                            component:tab1
+                        },
+                        {
+                            path:'/register/tab2',
+                            component:tab2
+                        }
+                    ]
+                }
+            ]
+        })
+        var vm = new Vue({
+            el: '#app',
+            data:{},
+            //挂载router
+            router,     
+        })
+    </script>
+</body>
+</html>
